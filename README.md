@@ -1,6 +1,12 @@
 # versioneye-slack
 Send notifications from versioneye to slack channel
 
+# Install
+
+```bash
+pip install versioneye_slack
+```
+
 # How to use it:
 
 ```bash

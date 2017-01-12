@@ -21,8 +21,6 @@ setup(
     license='MIT',
 
     classifiers=[
-        'Development Status :: 5 - Stable',
-
         'License :: OSI Approved :: MIT License',
 
         'Programming Language :: Python :: 2',
