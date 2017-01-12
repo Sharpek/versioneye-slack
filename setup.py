@@ -7,7 +7,7 @@ here = path.abspath(path.dirname(__file__))
 setup(
     name='versioneye_slack',
     packages=['versioneye_slack'],
-    version='1.0',
+    version='1.1',
 
     description='Send notifications from versioneye to slack channel Edit',
     long_description='Send notifications from versioneye to slack channel Edit',
