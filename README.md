@@ -1,6 +1,8 @@
 # versioneye-slack
 Send notifications from versioneye to slack channel
 
+![Screenshot](https://raw.githubusercontent.com/Sharpek/versioneye-slack/master/data/preview.png)
+
 # Install
 
 ```bash
@@ -14,3 +16,9 @@ versioneye_slack --versioneye-key={versioneye-key} --slack-channel="{publish cha
 ```
 
 To get slack hook url you have to visit: https://slack.com/apps/build and select Incoming WebHooks
+
+
+# Help
+```bash
+versioneye_slack --help
+```

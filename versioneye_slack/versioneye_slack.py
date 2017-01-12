@@ -49,13 +49,31 @@ class VersionEyeNotification:
         messages = []
 
         for package in outdated:
-            package['security_vulnerabilities'] = package['security_vulnerabilities'] or 'no'
+            if package['security_vulnerabilities']:
+                package['security_vulnerabilities'] = '*yes*'
+            else:
+                package['security_vulnerabilities'] = 'no'
+
+            prod_key = package['prod_key'].replace('/', ':')
+
             messages.append({
-                'text': '''Package: {name} ({language})
-        current version: {version_current}, our version: {version_requested}
-        security_vulnerabilities: {security_vulnerabilities}'''.format(
-                    **package),
-                'color-code': 'danger'
+                'title': 'Package: {name} ({language})'.format(**package),
+                'title_link': 'https://www.versioneye.com/{language}/{prod_key}'.format(language=package['language'],
+                                                                                        prod_key=prod_key),
+                'text': '''Security vulnerabilities: {security_vulnerabilities}'''.format(**package),
+                "fields": [
+                    {
+                        "title": "Current Version",
+                        "value": package['version_current'],
+                        "short": True
+                    },
+                    {
+                        "title": "Our Version",
+                        "value": package['version_requested'],
+                        "short": True
+                    }
+                ],
+                'color': 'danger'
             })
 
         return messages
@@ -97,6 +115,7 @@ class VersionEyeNotification:
             cached = self._get_cached_content(cache_file)
 
             cache_file.seek(0)
+            cache_file.truncate()
 
             for package in outdated:
                 key = self._get_package_key(package)
@@ -105,7 +124,6 @@ class VersionEyeNotification:
             cache_file.write(
                 json.dumps(cached)
             )
-            cache_file.truncate()
 
 
 @click.command()
