@@ -1,5 +1,5 @@
 # versioneye-slack
-Send notifications from versioneye to slack channel
+Send notifications from versioneye to slack or rocket.chat channel
 
 ![Screenshot](https://raw.githubusercontent.com/Sharpek/versioneye-slack/master/data/preview.png)
 
@@ -16,6 +16,9 @@ versioneye_slack --versioneye-key={versioneye-key} --slack-channel="{publish cha
 ```
 
 To get slack hook url you have to visit: https://slack.com/apps/build and select Incoming WebHooks
+
+# Rocket.chat
+If you are using rocket.chat just pass rocket.chat hook in `--slack-hook` option
 
 
 # Help

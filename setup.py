@@ -7,10 +7,10 @@ here = path.abspath(path.dirname(__file__))
 setup(
     name='versioneye_slack',
     packages=['versioneye_slack'],
-    version='1.2',
+    version='1.2.1',
 
-    description='Send notifications from versioneye to slack channel Edit',
-    long_description='Send notifications from versioneye to slack channel Edit',
+    description='Send notifications from versioneye to slack/rocket.chat channel Edit',
+    long_description='Send notifications from versioneye to slack/rocket.chat channel Edit',
     url='https://github.com/Sharpek/versioneye-slack',
     author='Marcin Baran',
     author_email='sharpek@sharpek.net',
@@ -28,7 +28,7 @@ setup(
         'Programming Language :: Python :: 3.5',
     ],
 
-    keywords='versioneye slack',
+    keywords='versioneye slack rocket.chat',
 
     install_requires=[
         'click',
