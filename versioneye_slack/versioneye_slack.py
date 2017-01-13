@@ -10,7 +10,8 @@ from os.path import expanduser
 
 # noinspection PyMethodMayBeStatic
 class VersionEyeNotification:
-    def __init__(self, api_key, slack_hook, slack_channel):
+    def __init__(self, api_key, slack_hook, slack_channel, versioneye_project_key):
+        self._versioneye_project_key = versioneye_project_key
         self._slack_hook = slack_hook
         self._slack_channel = slack_channel
         self._api_key = api_key
@@ -23,7 +24,7 @@ class VersionEyeNotification:
         result = []
 
         for project in self._fetch_projects():
-            result += self._get_packages(project['ids'])
+            result += self._get_packages(project)
 
         outdated = self._filter_outdated(result)
         outdated = self._filter_cached(outdated)
@@ -34,8 +35,11 @@ class VersionEyeNotification:
             self._save_notification(outdated)
 
     def _fetch_projects(self):
+        if len(self._versioneye_project_key):
+            return self._versioneye_project_key
+
         url = 'https://www.versioneye.com/api/v2/projects?api_key={}'.format(self._api_key)
-        return requests.get(url).json()
+        return [x['ids'] for x in requests.get(url).json()]
 
     def _get_packages(self, project_key):
         url = 'https://www.versioneye.com/api/v2/projects/{project_key}?api_key={api_key}'.format(
@@ -130,11 +134,13 @@ class VersionEyeNotification:
 @click.option('--versioneye-key', help='Versioneye API KEY', required=True)
 @click.option('--slack-hook', help='Slack integration HOOK', required=True)
 @click.option('--slack-channel', default='#general', help='Slack channel', required=True)
-def run(versioneye_key, slack_hook, slack_channel):
+@click.option('--versioneye-project-key', multiple=True, help='VersionEye project key')
+def run(versioneye_key, slack_hook, slack_channel, versioneye_project_key):
     VersionEyeNotification(
         versioneye_key,
         slack_hook,
-        slack_channel
+        slack_channel,
+        versioneye_project_key,
     ).run()
 
 
